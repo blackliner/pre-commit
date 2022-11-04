@@ -330,7 +330,12 @@ def run(
         args: argparse.Namespace,
         environ: MutableMapping[str, str] = os.environ,
 ) -> int:
-    stash = not args.all_files and not args.files
+    stash = (
+        not args.all_files and
+        not args.files and
+        not args.from_ref and
+        not args.to_ref
+    )
 
     # Check if we have unresolved merge conflict files and fail fast.
     if stash and _has_unmerged_paths():
